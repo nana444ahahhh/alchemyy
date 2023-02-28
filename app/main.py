@@ -1,6 +1,9 @@
+import datetime
+
 from flask import Flask
 from data import db_session
 from data.users import User
+from data.jobs import Jobs
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -53,6 +56,17 @@ db_sess = db_session.create_session()
 db_sess.add(user3)
 db_sess.commit()
 
+jober = Jobs()
+jober.team_leader = 1
+jober.job = 'deployment of residential modules 1 and 2'
+jober.work_size = 15
+jober.collaborators = '2, 3'
+jober.start_date = datetime.datetime.now()
+jober.is_finished = False
+db_sess = db_session.create_session()
+db_sess.add(jober)
+db_sess.commit()
+
 
 def main():
     db_session.global_init("db/blogs.db")
@@ -61,3 +75,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
